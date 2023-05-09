@@ -252,6 +252,19 @@
       <string>R$</string>
      </property>
     </widget>
+    <widget class="QLabel" name="exbirivalor">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>400</y>
+       <width>481</width>
+       <height>201</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>carlos</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
