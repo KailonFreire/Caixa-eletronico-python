@@ -14,37 +14,11 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="btn2">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>180</y>
-      <width>120</width>
-      <height>100</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QPushButton" name="btn4">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>440</y>
-      <width>120</width>
-      <height>100</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btn3">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>310</y>
       <width>120</width>
       <height>100</height>
      </rect>
@@ -66,11 +40,11 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="btn5">
+   <widget class="QPushButton" name="btn3">
     <property name="geometry">
      <rect>
-      <x>900</x>
-      <y>50</y>
+      <x>10</x>
+      <y>310</y>
       <width>120</width>
       <height>100</height>
      </rect>
@@ -79,11 +53,11 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="btn6">
+   <widget class="QPushButton" name="btn8">
     <property name="geometry">
      <rect>
       <x>900</x>
-      <y>180</y>
+      <y>440</y>
       <width>120</width>
       <height>100</height>
      </rect>
@@ -105,11 +79,37 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="btn8">
+   <widget class="QPushButton" name="btn2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>180</y>
+      <width>120</width>
+      <height>100</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn6">
     <property name="geometry">
      <rect>
       <x>900</x>
-      <y>440</y>
+      <y>180</y>
+      <width>120</width>
+      <height>100</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn5">
+    <property name="geometry">
+     <rect>
+      <x>900</x>
+      <y>50</y>
       <width>120</width>
       <height>100</height>
      </rect>
@@ -133,12 +133,12 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="label_7">
      <property name="geometry">
       <rect>
-       <x>50</x>
-       <y>320</y>
-       <width>281</width>
+       <x>10</x>
+       <y>180</y>
+       <width>121</width>
        <height>41</height>
       </rect>
      </property>
@@ -148,66 +148,14 @@
       </font>
      </property>
      <property name="text">
-      <string>Ou insira um valor aqui:</string>
+      <string>Endereço:</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="saque20">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>70</y>
-       <width>93</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>R$20,00</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="saque50">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>200</y>
-       <width>93</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>R$50,00</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="saque150">
-     <property name="geometry">
-      <rect>
-       <x>610</x>
-       <y>200</y>
-       <width>93</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>R$150,00</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="saque100">
-     <property name="geometry">
-      <rect>
-       <x>610</x>
-       <y>70</y>
-       <width>93</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>R$100,00</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="confirmarBtn">
+    <widget class="QPushButton" name="confirmarBtn_4">
      <property name="geometry">
       <rect>
        <x>570</x>
-       <y>460</y>
+       <y>490</y>
        <width>121</width>
        <height>41</height>
       </rect>
@@ -216,29 +164,155 @@
       <string>Confirmar</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="inserirValor">
+    <widget class="QLineEdit" name="inserirEndereco">
      <property name="geometry">
       <rect>
-       <x>420</x>
-       <y>310</y>
-       <width>201</width>
+       <x>130</x>
+       <y>180</y>
+       <width>571</width>
        <height>51</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>30</pointsize>
+       <pointsize>16</pointsize>
       </font>
      </property>
      <property name="text">
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="label_9">
      <property name="geometry">
       <rect>
-       <x>350</x>
-       <y>310</y>
+       <x>10</x>
+       <y>20</y>
+       <width>81</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Nome:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_10">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>90</y>
+       <width>61</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>CPF:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="inserirCPF">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>90</y>
+       <width>631</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="inserirNome">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>20</y>
+       <width>601</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_8">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>270</y>
+       <width>91</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Senha:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="inserirSenha">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>270</y>
+       <width>211</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_19">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>370</y>
+       <width>221</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Primeiro deposito:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_20">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>360</y>
        <width>61</width>
        <height>51</height>
       </rect>
@@ -250,6 +324,24 @@
      </property>
      <property name="text">
       <string>R$</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="inserirSaldo">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>360</y>
+       <width>241</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>30</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </widget>
