@@ -1,3 +1,4 @@
+# cadastro.py
 from PyQt5 import uic
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
@@ -35,8 +36,8 @@ class TelaCadastro(QMainWindow):
             db.close()
 
             message = "Cadastro completo!"
-            QMessageBox.information(self, "Successo", message)
+            QMessageBox.information(self, "Sucesso", message)
             self.registerSignal.emit()
         else:
-            message = "Por favor preencha todos os campos"
-            QMessageBox.warning(self, "Error", message)
+            message = "Por favor, preencha todos os campos"
+            QMessageBox.warning(self, "Erro", message)

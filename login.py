@@ -1,11 +1,14 @@
-import sys
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtWidgets import QMainWindow, QMessageBox
 import dbconnection
 
 ui_file = "C:/Users/kaiki/Desktop/Coding/projetopython/interface/tela_login.ui"
 
+
 class TelaLogin(QMainWindow):
+    registerSignal = pyqtSignal(dict)
+
     def __init__(self, parent=None):
         super(TelaLogin, self).__init__(parent)
         uic.loadUi(ui_file, self)
@@ -30,20 +33,15 @@ class TelaLogin(QMainWindow):
             db.close()
 
             if result:
-                message = "Login successful!"
+                username = result[1]  # Assuming the username is in the second column
+                saldo = result[5]  # Assuming the saldo is in the sixth column
+
+                message = "Login realizado!"
                 QMessageBox.information(self, "Success", message)
-                self.close()
-                # Open the main window or perform other operations
+                self.registerSignal.emit({"username": username, "saldo": saldo})
             else:
-                message = "Invalid CPF or senha. Please try again."
+                message = "CPF ou senha inválidos. Por favor tente novamente."
                 QMessageBox.warning(self, "Login Error", message)
         else:
-            message = "Please enter CPF and senha."
+            message = "Por favor insira CPF e senha."
             QMessageBox.warning(self, "Login Error", message)
-
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = TelaLogin()
-    window.show()
-    sys.exit(app.exec_())

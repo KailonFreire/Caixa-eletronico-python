@@ -1,8 +1,9 @@
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
-from cadastro import TelaCadastro
+from PyQt5.QtCore import pyqtSignal
 from login import TelaLogin
+from cadastro import TelaCadastro
 from saque import TelaSaque
 
 ui_file = "C:/Users/kaiki/Desktop/Coding/projetopython/interface/telainicial.ui"
@@ -18,26 +19,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tela_login = TelaLogin(self)
         self.saqueBtn.clicked.connect(self.openTelaSaque)
         self.cadastroBtn.clicked.connect(self.openTelaCadastro)
-
+        self.tela_login.registerSignal.connect(self.openMainWindow)
         self.tela_cadastro.registerSignal.connect(self.openMainWindow)
 
-    def openTelaSaque(self):
-        self.hide()
         self.openTelaLogin()
-        if self.tela_login.authenticate_login():  # Use the correct method name 'authenticate_login'
-            self.tela_saque.show()
-        else:
-            self.show()
-
-    def openTelaCadastro(self):
-        self.hide()
-        self.tela_cadastro.show()
 
     def openTelaLogin(self):
         self.hide()
         self.tela_login.show()
 
+    def openTelaSaque(self, saldo):
+        self.hide()
+        self.tela_saque.saldo = saldo
+        self.tela_saque.show()
+
+    def openTelaCadastro(self):
+        self.hide()
+        self.tela_cadastro.show()
+
     def openMainWindow(self):
+        self.tela_login.close()
         self.tela_cadastro.close()
         self.show()
 
@@ -45,5 +46,4 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     main_window = MainWindow()
-    main_window.show()
     sys.exit(app.exec_())
