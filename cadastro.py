@@ -1,4 +1,3 @@
-# cadastro.py
 from PyQt5 import uic
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
@@ -8,7 +7,7 @@ ui_file = "C:/Users/kaiki/Desktop/Coding/projetopython/interface/telacadastro.ui
 
 
 class TelaCadastro(QMainWindow):
-    registerSignal = pyqtSignal()
+    registerSignal = pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(TelaCadastro, self).__init__(parent)
@@ -24,6 +23,7 @@ class TelaCadastro(QMainWindow):
         saldo = self.inserirSaldo.text()
 
         if nome and cpf and endereco and senha and saldo:
+           if nome and cpf and endereco and senha and saldo:
             # Connect to the database
             db = dbconnection.connect()
 
@@ -37,7 +37,8 @@ class TelaCadastro(QMainWindow):
 
             message = "Cadastro completo!"
             QMessageBox.information(self, "Sucesso", message)
-            self.registerSignal.emit()
+            self.registerSignal.emit(cpf)
+            self.close()  # Emit the signal with the CPF value
         else:
             message = "Por favor, preencha todos os campos"
             QMessageBox.warning(self, "Erro", message)
