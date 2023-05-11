@@ -54,7 +54,7 @@ class FimSaque(QMainWindow):
         super(FimSaque, self).__init__(parent)
         uic.loadUi(ui_file2, self)
         self.setWindowTitle("Fim Saque")
-        self.exibirValor.setText(resultado)
+        self.exibirValor.setText(abs(resultado))
         self.saldoLbl.setText(str(saldo))
 
 
