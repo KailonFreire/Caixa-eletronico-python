@@ -8,7 +8,7 @@ ui_file = "C:/Users/kaiki/Desktop/Coding/projetopython/interface/tela_login.ui"
 
 
 class TelaLogin(QMainWindow):
-    registerSignal = pyqtSignal(str)
+    registerSignalLogin = pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(TelaLogin, self).__init__(parent)
@@ -32,7 +32,7 @@ class TelaLogin(QMainWindow):
 
             if result:
                 self.close()  # Close the login window
-                self.registerSignal.emit(cpf)  # Pass the CPF to the main window
+                self.registerSignalLogin.emit(cpf)  # Pass the CPF to the main window
             else:
                 message = "CPF ou senha incorretos"
                 QMessageBox.warning(self, "Erro de Login", message)

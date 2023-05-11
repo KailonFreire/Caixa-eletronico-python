@@ -7,7 +7,7 @@ ui_file = "C:/Users/kaiki/Desktop/Coding/projetopython/interface/telacadastro.ui
 
 
 class TelaCadastro(QMainWindow):
-    registerSignal = pyqtSignal(str)
+    registerSignalCadastro = pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(TelaCadastro, self).__init__(parent)
@@ -37,8 +37,8 @@ class TelaCadastro(QMainWindow):
 
             message = "Cadastro completo!"
             QMessageBox.information(self, "Sucesso", message)
-            self.registerSignal.emit(cpf)
-            self.close()  # Emit the signal with the CPF value
+            self.close()
+            self.registerSignalCadastro.emit(cpf)  # Emit the signal with the CPF value  message = "Cadastro completo!"
         else:
             message = "Por favor, preencha todos os campos"
             QMessageBox.warning(self, "Erro", message)
