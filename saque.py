@@ -1,11 +1,11 @@
 from PyQt5 import uic
+from PyQt5.QtWidgets import QApplication, QMainWindow
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel
+import Models.User
 
 notas = [10, 20, 50, 100]
-ui_file = "C:/Users/kaiki/Desktop/Coding/projetopython/interface/tela_saque.ui"
-ui_file2 = "C:/Users/kaiki/Desktop/Coding/projetopython/interface/fimsaque.ui"
-
+ui_file = "interface/tela_saque.ui"
+ui_file2 = "interface/fimsaque.ui"
 
 class TelaSaque(QMainWindow):
     def __init__(self, parent=None):
@@ -21,7 +21,7 @@ class TelaSaque(QMainWindow):
     def setValorInserido(self, value):
         if value:
             try:
-                self.valor = int(value)
+                self.valor = int(value).as_integer_ratio
                 print(self.valor)
             except ValueError:
                 print("Valor inválido")
@@ -35,11 +35,13 @@ class TelaSaque(QMainWindow):
             self.setValorInserido(self.inserirValor.text())
         resto = self.saldo - int(self.valor)
         resultado = ""
+
         for nota in reversed(notas):
             if int(self.valor) >= nota:
                 quantidade_notas = int(self.valor) // nota
                 resultado += f"Serão {quantidade_notas} de R${nota}\n"
                 self.valor = int(self.valor) % nota
+
         return resultado, resto
 
     def abrirFimSaque(self):
@@ -59,7 +61,7 @@ class FimSaque(QMainWindow):
 
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
+    app = QApplication([])
     window = TelaSaque()
     window.show()
     sys.exit(app.exec_())

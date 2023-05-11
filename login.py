@@ -2,10 +2,9 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from PyQt5.QtCore import pyqtSignal
 from cadastro import TelaCadastro
-import dbconnection
+import database
 
-ui_file = "C:/Users/kaiki/Desktop/Coding/projetopython/interface/tela_login.ui"
-
+ui_file = "interface/tela_login.ui"
 
 class TelaLogin(QMainWindow):
     registerSignalLogin = pyqtSignal(str)
@@ -23,7 +22,7 @@ class TelaLogin(QMainWindow):
         senha = self.inserirSenha.text()
 
         if cpf and senha:
-            db = dbconnection.connect()
+            db = database.createConnection()
             cursor = db.cursor()
             sql = "SELECT * FROM users WHERE cpf = %s AND senha = %s"
             values = (cpf, senha)
@@ -31,8 +30,8 @@ class TelaLogin(QMainWindow):
             result = cursor.fetchone()
 
             if result:
-                self.close()  # Close the login window
-                self.registerSignalLogin.emit(cpf)  # Pass the CPF to the main window
+                self.close()  
+                self.registerSignalLogin.emit(cpf) 
             else:
                 message = "CPF ou senha incorretos"
                 QMessageBox.warning(self, "Erro de Login", message)

@@ -1,12 +1,12 @@
 from PyQt5 import uic
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel
+from PyQt5.QtWidgets import QApplication, QMainWindow
 from cadastro import TelaCadastro
 
 from login import TelaLogin
 
 notas = [10, 20, 50, 100]
-ui_file = "C:/Users/kaiki/Desktop/Coding/projetopython/interface/telalogincadastro.ui"
+ui_file = "interface/telalogincadastro.ui"
 
 
 class TelaLoginCadastro(QMainWindow):
@@ -27,7 +27,7 @@ class TelaLoginCadastro(QMainWindow):
         self.tela_cadastro.show()
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
+    app = QApplication([])
     window = TelaLoginCadastro()
     window.show()
     sys.exit(app.exec_())
