@@ -49,9 +49,9 @@ class TelaLogin(QMainWindow):
 
 # ui_file2 = "C:/Users/kaiki/Desktop/Coding/projetopython/interface/telacadastro.ui"
 
-import dbconnection
-from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QMessageBox
+# import dbconnection
+# from PyQt5 import uic
+# from PyQt5.QtWidgets import QMainWindow, QMessageBox
 
 ui_file2 = "C:/Users/kaiki/Desktop/Coding/projetopython/interface/telacadastro.ui"
 
