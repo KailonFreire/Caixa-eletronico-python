@@ -35,6 +35,7 @@ class TelaSaque(QMainWindow):
             self.setValorInserido(self.inserirValor.text())
         resto = self.saldo - int(self.valor)
         resultado = ""
+        
         for nota in reversed(notas):
             if int(self.valor) >= nota:
                 quantidade_notas = int(self.valor) // nota
@@ -47,7 +48,6 @@ class TelaSaque(QMainWindow):
         self.fimSaque = FimSaque(resultado, saldo_atualizado)
         self.close()
         self.fimSaque.show()
-
 
 class FimSaque(QMainWindow):
     def __init__(self, resultado, saldo, parent=None):

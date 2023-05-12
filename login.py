@@ -1,24 +1,23 @@
+import dbconnection
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
-from PyQt5.QtCore import pyqtSignal
-import dbconnection
+from cadastro import TelaCadastro
 
 ui_file = "C:/Users/kaiki/Desktop/Coding/projetopython/interface/tela_login.ui"
-# ui_file2 = "C:/Users/kaiki/Desktop/Coding/projetopython/interface/telacadastro.ui"
 
 class TelaLogin(QMainWindow):
-    registerSignalLogin = pyqtSignal(str)
-
     def __init__(self, parent=None):
         super(TelaLogin, self).__init__(parent)
         uic.loadUi(ui_file, self)
         self.setWindowTitle("Tela de Login")
         self.loginBtn.clicked.connect(self.authenticate_login)
-        # self.cadastrarBtn.clicked.connect(self.openTelaCadastro)
-        # self.tela_cadastro = TelaCadastro(self)
-        # self.tela_login = TelaLogin(self)  # Add this line
+        self.cadastrarBtn.clicked.connect(self.openTelaCadastro)
+        self.tela_cadastro = TelaCadastro(self)
+        self.loginCallback = None
 
-        # self.tela_login.registerSignalLogin.connect(self.openMainWindowWithCPFLogin)
+    def setLoginCallback(self, callback):
+        self.loginCallback = callback
+        print(self.loginCallback)
 
     def authenticate_login(self):
         cpf = self.inserirCPF.text()
@@ -34,7 +33,8 @@ class TelaLogin(QMainWindow):
 
             if result:
                 self.close()  # Close the login window
-                self.registerSignalLogin.emit(cpf)  # Pass the CPF to the main window
+                if self.loginCallback:
+                    self.loginCallback(cpf)  # Invoke the callback function with the CPF
             else:
                 message = "CPF ou senha incorretos"
                 QMessageBox.warning(self, "Erro de Login", message)
@@ -45,10 +45,17 @@ class TelaLogin(QMainWindow):
     def openTelaCadastro(self):
         self.hide()
         self.tela_cadastro.show()
+        
+
+# ui_file2 = "C:/Users/kaiki/Desktop/Coding/projetopython/interface/telacadastro.ui"
+
+import dbconnection
+from PyQt5 import uic
+from PyQt5.QtWidgets import QMainWindow, QMessageBox
+
+ui_file2 = "C:/Users/kaiki/Desktop/Coding/projetopython/interface/telacadastro.ui"
 
 # class TelaCadastro(QMainWindow):
-#     registerSignalCadastro = pyqtSignal(str)
-
 #     def __init__(self, parent=None):
 #         super(TelaCadastro, self).__init__(parent)
 #         uic.loadUi(ui_file2, self)
@@ -63,11 +70,7 @@ class TelaLogin(QMainWindow):
 #         saldo = self.inserirSaldo.text()
 
 #         if nome and cpf and endereco and senha and saldo:
-#            if nome and cpf and endereco and senha and saldo:
-#             # Connect to the database
 #             db = dbconnection.connect()
-
-#             # Insert user data into the database
 #             cursor = db.cursor()
 #             sql = "INSERT INTO users (nome, cpf, endereco, senha, saldo) VALUES (%s, %s, %s, %s, %s)"
 #             values = (nome, cpf, endereco, senha, saldo)
@@ -77,7 +80,12 @@ class TelaLogin(QMainWindow):
 
 #             message = "Cadastro completo!"
 #             QMessageBox.information(self, "Sucesso", message)
-#             self.registerSignalCadastro.emit(cpf)  # Emit the signal with the CPF value  message = "Cadastro completo!"
+#             self.close()  # Close the cadastro window
+
+#             # Get a reference to the main window
+#             main_window = self.parent()
+#             if main_window:
+#                 main_window.openMainWindowWithCPFCadastro(cpf)  # Call the function in the main window
 #         else:
 #             message = "Por favor, preencha todos os campos"
 #             QMessageBox.warning(self, "Erro", message)
