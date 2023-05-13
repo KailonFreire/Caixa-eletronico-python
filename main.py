@@ -1,18 +1,18 @@
-import sys
+import database
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from login import TelaLogin
 from saque import TelaSaque
 from cadastro import TelaCadastro
 
-ui_file = "C:/Users/kaiki/Desktop/Coding/projetopython/interface/telainicial.ui"
+ui_file = "interface/telainicial.ui"
 Ui_MainWindow, _ = uic.loadUiType(ui_file)
-
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
-        self.setupUi(self)
+        uic.loadUi(ui_file, self)
+
         self.tela_saque = TelaSaque(self)
         self.tela_login = TelaLogin(self)
         self.tela_cadastro = TelaCadastro(self)
@@ -35,17 +35,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def openMainWindowWithCPFCadastro(self, cpf):
         self.tela_cadastro.close()
         self.show()
-        # Use the CPF value as needed
-        print("CPF:", cpf)
     
     def openMainWindowWithCPFLogin(self, cpf):
         self.tela_login.close()
         self.show()
-        # Use the CPF value as needed
-        print("CPF:", cpf)
 
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
+    database.start()
+    app = QApplication([])
     main_window = MainWindow()
-    sys.exit(app.exec_())
+    app.exec_()
