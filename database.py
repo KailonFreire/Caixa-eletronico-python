@@ -4,8 +4,8 @@ def start():
     conn = mysql.connector.connect(
         host="localhost",
         user="root",
-        passwd='235711',
-        auth_plugin='mysql_native_password'
+        # passwd='235711',
+        # auth_plugin='mysql_native_password'
     )
 
     cursor = conn.cursor()

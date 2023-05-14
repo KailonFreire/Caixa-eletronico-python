@@ -24,7 +24,7 @@ class TelaLogin(QMainWindow):
         senha = self.inserirSenha.text()
 
         if cpf and senha:
-            db = dbconnection.createConnection()
+            db = dbconnection.connect()
             cursor = db.cursor()
             sql = "SELECT * FROM users WHERE cpf = %s AND senha = %s"
             values = (cpf, senha)

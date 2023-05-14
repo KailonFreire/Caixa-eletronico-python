@@ -1,4 +1,4 @@
-import database
+# import database
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from login import TelaLogin
@@ -23,26 +23,36 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         self.tela_login.show()
 
-    def openTelaSaque(self, saldo):
-        self.close()
-        self.tela_saque.saldo = saldo
-        self.tela_saque.show()
+        self.logged_in_user_cpf = None  # Store the logged-in user's CPF
+
+    def openTelaSaque(self):
+        if self.logged_in_user_cpf:
+            self.close()
+            self.tela_saque.setLoggedInUser(self.logged_in_user_cpf)  # Pass the logged-in user's CPF
+            self.tela_saque.show()
+        else:
+            self.close()
+            self.tela_login.show()
+            pass
 
     def openTelaCadastro(self):
         self.hide()
         self.tela_cadastro.show()
+        
 
     def openMainWindowWithCPFCadastro(self, cpf):
         self.tela_cadastro.close()
         self.show()
-    
+        self.logged_in_user_cpf = cpf 
+        
     def openMainWindowWithCPFLogin(self, cpf):
         self.tela_login.close()
         self.show()
+        self.logged_in_user_cpf = cpf  # Store the logged-in user's CPF
 
 
 if __name__ == "__main__":
-    database.start()
+    # database.start()
     app = QApplication([])
     main_window = MainWindow()
     app.exec_()

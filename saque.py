@@ -1,52 +1,102 @@
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 import sys
-import Models.User
+import mysql.connector
+from models.User import User
+import dbconnection
 
 notas = [10, 20, 50, 100]
 ui_file = "interface/tela_saque.ui"
 ui_file2 = "interface/fimsaque.ui"
 
+import dbconnection
+from PyQt5 import uic
+from PyQt5.QtWidgets import QMainWindow, QMessageBox
+
+ui_file = "C:/Users/kaiki/Desktop/Coding/projetopython/interface/tela_saque.ui"
+ui_file2 = "C:/Users/kaiki/Desktop/Coding/projetopython/interface/telasaque2.ui"
+
 class TelaSaque(QMainWindow):
     def __init__(self, parent=None):
         super(TelaSaque, self).__init__(parent)
         uic.loadUi(ui_file, self)
-        self.saque50.clicked.connect(lambda: self.set_valor(50))
-        self.saque100.clicked.connect(lambda: self.set_valor(100))
-        self.saque150.clicked.connect(lambda: self.set_valor(150))
-        self.confirmarBtn.clicked.connect(self.abrirFimSaque)
-        self.saldo = 2000
-        self.valor = 0
+        self.setWindowTitle("Tela de Saque")
+        self.confirmarBtn.clicked.connect(self.processarSaque)
+
+        self.logged_in_user_cpf = None  # Store the logged-in user's CPF
+
+    def setLoggedInUser(self, cpf):
+        self.logged_in_user_cpf = cpf
+
+    def processarSaque(self):
+        # Retrieve the logged-in user's CPF
+        cpf = self.logged_in_user_cpf
+
+        # Retrieve user data from the database
+        user = self.getUserByCPF(cpf)
+        if user:
+            self.user = user
+            self.calcularNotas()
+            self.atualizarSaldo()
+            self.abrirFimSaque()
+        else:
+            message = "Usuário não encontrado"
+            QMessageBox.warning(self, "Erro", message)
+            
+    def getUserByCPF(self, cpf):
+        try:
+            conn = dbconnection.connect()
+            cursor = conn.cursor()
+            query = "SELECT * FROM users WHERE cpf = %s"
+            values = (cpf,)
+            cursor.execute(query, values)
+            user_data = cursor.fetchone()
+            cursor.close()
+            conn.close()
+            if user_data:
+                # Assign the values to variables
+                user_id, user_nome, user_saldo, cpf, *_ = user_data
+
+                # Create a User object using the values
+                user = User(user_id, user_nome, cpf, user_saldo)
+
+                return user
+            else:
+                return None 
+        except mysql.connector.Error as error:
+            print("Erro conectando com o banco de dados:", error)
+            return None
 
     def setValorInserido(self, value):
-        if value:
-            try:
-                self.valor = int(value).as_integer_ratio
-                print(self.valor)
-            except ValueError:
-                print("Valor inválido")
+        self.valor = int(value) if value.isdigit() else 0
+        print(self.valor)
 
     def set_valor(self, value):
         self.valor = value
         print(self.valor)
 
     def calcularNotas(self):
-        if self.inserirValor.text():
-            self.setValorInserido(self.inserirValor.text())
-        resto = self.saldo - int(self.valor)
-        resultado = ""
-        
-        for nota in reversed(notas):
-            if int(self.valor) >= nota:
-                quantidade_notas = int(self.valor) // nota
-                resultado += f"Serão {quantidade_notas} de R${nota}\n"
-                self.valor = int(self.valor) % nota
+        self.setValorInserido(self.inserirValor.text())
+        resto = self.user.saldo - self.valor
+        self.resultado = "\n".join(f"Serão {self.valor // nota} de R${nota}" for nota in reversed(notas) if self.valor >= nota)
+        self.valor %= notas[-1]
 
-        return resultado, resto
+    def atualizarSaldo(self):
+        try:
+            conn = dbconnection.connect()
+            cursor = conn.cursor()
+            query = "UPDATE users SET saldo = %s WHERE cpf = %s"
+            values = (self.user.saldo - self.valor, self.user.cpf)
+            cursor.execute(query, values)
+            conn.commit()
+            cursor.close()
+            conn.close()
+            self.user.saldo -= self.valor
+        except mysql.connector.Error as error:
+            print("Error while connecting to MySQL:", error)
 
     def abrirFimSaque(self):
-        resultado, saldo_atualizado = self.calcularNotas()
-        self.fimSaque = FimSaque(resultado, saldo_atualizado)
+        self.fimSaque = FimSaque(self.resultado, self.user.saldo)
         self.close()
         self.fimSaque.show()
 
@@ -55,12 +105,6 @@ class FimSaque(QMainWindow):
         super(FimSaque, self).__init__(parent)
         uic.loadUi(ui_file2, self)
         self.setWindowTitle("Fim Saque")
-        self.exibirValor.setText(abs(resultado))
+        self.exibirValor.setText(resultado)
         self.saldoLbl.setText(str(saldo))
 
-
-if __name__ == "__main__":
-    app = QApplication([])
-    window = TelaSaque()
-    window.show()
-    sys.exit(app.exec_())
